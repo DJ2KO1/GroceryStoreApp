@@ -23,3 +23,5 @@ interface APIService {
 //Headers
 //( "Accept: application/json")
 //("Authorization: Bearer $token")
+//client id : grocerystore-e32339f7148fa55f5dba413bc44b21f24829451287186067310
+//client secret : pQEWKEi84uuHbGCDfrcZXunsOLyYS1UX5SEr7Tgq
