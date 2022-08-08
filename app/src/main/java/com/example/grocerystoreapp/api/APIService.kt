@@ -1,24 +1,25 @@
 package com.example.grocerystoreapp.api
 
-import com.example.grocerystoreapp.MainActivity
 import com.example.grocerystoreapp.model.ProductResponse
 import com.example.grocerystoreapp.model.TokenResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
-import retrofit2.http.Body
 
 interface APIService {
     @Headers("Accept: application/json")
     @GET("v1/products")
-    suspend fun getProducts(
-        @Header("Authorization") bearer: String,
-        @Query("locationId") locationId: Long ,
+     suspend fun getProducts(
+        @Query("locationId") locationId: String ,
         @Query("term") term: String
     ): Response<ProductResponse>
 
+    @FormUrlEncoded
     @POST("v1/connect/oauth2/token")
-     fun getToken(@Body body: MainActivity.Body ): Call<TokenResponse>
+   suspend fun getToken(
+        @Header("Authorization")  authorization: String,
+        @Field("grant_type") grant_type: String
+    ): Call<TokenResponse>
 }
 
 
