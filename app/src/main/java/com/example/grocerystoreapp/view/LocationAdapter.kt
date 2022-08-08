@@ -1,5 +1,7 @@
 package com.example.grocerystoreapp.view
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grocerystoreapp.databinding.LocationListItemBinding
 import com.example.grocerystoreapp.model.LocationData
@@ -21,5 +23,23 @@ class LocationAdapter (
                 tvHours.text = item.hours.monday.open
             }
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
+        return LocationViewHolder(
+            LocationListItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
+        holder.onBind(list[position])
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
     }
 }
