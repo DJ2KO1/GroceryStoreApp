@@ -5,10 +5,11 @@ import android.os.Bundle
 import com.example.grocerystoreapp.R
 import com.example.grocerystoreapp.model.SessionManager
 import com.example.grocerystoreapp.di.ApiClient
+import com.example.grocerystoreapp.di.DI
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
-    private lateinit var apiClient: ApiClient
+    private lateinit var apiClient: DI
 
 
 
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sessionManager = SessionManager(this)
-        apiClient = ApiClient()
 
 
 //            apiClient.getApiService(this).getToken(Credentials.basic(client_id, client_secret), grant_type).enqueue(object : Callback<TokenResponse> {
