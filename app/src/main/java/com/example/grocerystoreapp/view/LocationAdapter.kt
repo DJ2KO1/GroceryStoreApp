@@ -7,7 +7,8 @@ import com.example.grocerystoreapp.databinding.LocationListItemBinding
 import com.example.grocerystoreapp.model.LocationData
 
 class LocationAdapter (
-    private val list: MutableList<LocationData> = mutableListOf()
+    private val list: MutableList<LocationData> = mutableListOf(),
+    private val openSearch:(LocationData) -> Unit
 ): RecyclerView.Adapter<LocationAdapter.LocationViewHolder>(){
 
     fun setLocationList(newList: List<LocationData>){
@@ -21,6 +22,9 @@ class LocationAdapter (
                 tvAddress.text = item.address.addressLine1.plus(item.address.city).plus(item.address.county).plus(item.address.state).plus(item.address.zipCode)
                 tvName.text = item.name
                 tvHours.text = item.hours.monday.open
+            }
+            binding.root.setOnClickListener {
+                openSearch(item)
             }
         }
     }

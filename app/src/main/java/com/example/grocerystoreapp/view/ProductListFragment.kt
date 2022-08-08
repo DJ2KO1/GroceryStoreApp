@@ -37,7 +37,7 @@ class ProductListFragment : ViewModelFragment(){
                 }
                 is UIState.Error -> {
                     binding.pbLoading.visibility = View.GONE
-                    binding.tvLoadingText.text = "Invaild Product"
+                    binding.tvLoadingText.text = "Invalid Product"
                     binding.tvLoadingText.textSize = 40F
                     Toast.makeText(context, "Please Try Again", Toast.LENGTH_SHORT).show()
                 }

@@ -1,9 +1,11 @@
 package com.example.grocerystoreapp.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.grocerystoreapp.api.APIService
+import com.example.grocerystoreapp.api.LocationRepositoryImpl
 import com.example.grocerystoreapp.api.ProductRepositoryImpl
 import com.example.grocerystoreapp.viewmodel.ProductViewModel
 import kotlinx.coroutines.Dispatchers
@@ -46,10 +48,13 @@ object DI {
 
     private fun provideRepository() = ProductRepositoryImpl(apiService)
     private fun provideDispatcher() = Dispatchers.IO
+    private fun provideLocationRepository() = LocationRepositoryImpl(apiService)
 
     fun provideViewModel(storeOwner: ViewModelStoreOwner): ProductViewModel {
-        return ViewModelProvider(storeOwner, object: ViewModelProvider.Factory){
-
-        }
+        return ViewModelProvider(storeOwner, object: ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ProductViewModel(provideRepository(), provideDispatcher(), provideLocationRepository()) as T
+            }
+        })[ProductViewModel::class.java]
     }
 }

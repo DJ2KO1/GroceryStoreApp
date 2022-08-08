@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.grocerystoreapp.api.LocationRepository
 import com.example.grocerystoreapp.api.ProductRepository
 import com.example.grocerystoreapp.model.ProductData
 import com.example.grocerystoreapp.model.UIState
@@ -18,10 +19,15 @@ const val TAG = "ProductViewModel"
 
 class ProductViewModel (
     private val repository: ProductRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val locationRepository: LocationRepository
         ): ViewModel() {
+
     private val _productLiveData = MutableLiveData<UIState>()
     val productLiveData: LiveData<UIState> get() = _productLiveData
+
+    private val _locationLiveData = MutableLiveData<UIState>()
+    val locationLiveData: LiveData<UIState> get() = _locationLiveData
 
 
     private val coroutineExceptionHandler by lazy {
@@ -46,7 +52,17 @@ class ProductViewModel (
         }
     }
 
+    fun getLocation(zipcode: String){
+        viewModelSafeScope.launch {
+            locationRepository.getLocations(zipcode).collect{
+                _locationLiveData.postValue(it)
+            }
+        }
+    }
+
     fun setLoading(){ _productLiveData.value = UIState.Loading}
     fun setLoadingForDetails(){ _productLiveData.value = UIState.Loading}
     fun setSuccess(item: ProductData){ _productLiveData.value = UIState.Success(item)}
+    fun setLoadingForLocation(){_locationLiveData.value = UIState.Loading}
+
 }

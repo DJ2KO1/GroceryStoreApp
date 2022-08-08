@@ -1,5 +1,6 @@
 package com.example.grocerystoreapp.api
 
+import com.example.grocerystoreapp.model.LocationResponse
 import com.example.grocerystoreapp.model.ProductResponse
 import com.example.grocerystoreapp.model.TokenResponse
 import retrofit2.Call
@@ -10,9 +11,14 @@ interface APIService {
     @Headers("Accept: application/json")
     @GET("v1/products")
      suspend fun getProducts(
-        @Query("locationId") locationId: String ,
-        @Query("term") term: String
+        @Query("filter.locationId") locationId: String ,
+        @Query("filter.term") term: String
     ): Response<ProductResponse>
+
+     @GET("v1/products")
+     suspend fun getLocations(
+         @Query("filter.zipCode.near") zipcode: String
+     ): Response<LocationResponse>
 
     @FormUrlEncoded
     @POST("v1/connect/oauth2/token")
