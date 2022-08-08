@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nag_graph.xml">
+
+
+    <fragment
+        android:id="@+id/nav_starting_page"
+        android:name="com.example.grocerystoreapp.view.StartingPageFragment">
+        <action
+            android:id="@+id/action_nav_starting_page_to_nav_zipcode_page"
+            app:destination="@id/nav_zipcode_page" />
+    </fragment>
+
+
+  <fragment
+      android:id="@+id/nav_zipcode_page"
+      android:name="com.example.grocerystoreapp.view.ZipcodeFragment">
+      <action
+          android:id="@+id/action_nav_zipcode_page_to_nav_locationList"
+          app:destination="@id/nav_locationList" />
+  </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_search_page"
+        android:name="com.example.grocerystoreapp.view.SearchPageFragment">
+        <action
+            android:id="@+id/action_nav_search_page_to_nav_product_list"
+            app:destination="@id/nav_product_list" />
+        <argument
+            android:name="locationId"
+            app:argType="string"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_product_list"
+        android:name="com.example.grocerystoreapp.view.ProductListFragment">
+        <action
+            android:id="@+id/action_nav_product_list_to_nav_product_details"
+            app:destination="@id/nav_product_details" />
+        <argument
+            android:name="term"
+            app:argType="string"/>
+        <argument
+            android:name="locationID"
+            app:argType="string"/>
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_locationList"
+        android:name="com.example.grocerystoreapp.view.LocationListFragment">
+        <action
+            android:id="@+id/action_nav_locationList_to_nav_search_page"
+            app:destination="@id/nav_search_page" />
+        <argument
+            android:name="zipCode"
+            app:argType="string"/>
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_product_details"
+        android:name="com.example.grocerystoreapp.view.ProductDetailsFragment">
+        <argument
+            android:name="productData"
+            app:argType="com.example.grocerystoreapp.model.ProductData"/>
+        <argument
+            android:name="locationID"
+            app:argType="string"/>
+
+    </fragment>
+
+</navigation>
