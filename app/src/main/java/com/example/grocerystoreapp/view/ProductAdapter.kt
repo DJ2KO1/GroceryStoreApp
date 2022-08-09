@@ -21,12 +21,12 @@ class ProductAdapter(
     inner class ProductViewHolder(private val binding: ProductListItemBinding):RecyclerView.ViewHolder(binding.root){
         fun onBind(item: ProductData){
             binding.apply {
-                tvAvailability.text = item.items[1].fulfillment.inStore.toString()
-                tvPrice.text = item.items[3].price.regular.toString()
+                tvAvailability.text = item.items[0].fulfillment.inStore.toString()
+                tvPrice.text = item.items[0].price.regular.toString()
                 tvProductDescription.text = item.description
 
                 Glide.with(ivProductImage)
-                    .load(item.images[2].sizes[1].url)
+                    .load(item.images[0].sizes[0].url)
                     .into(ivProductImage)
             }
 

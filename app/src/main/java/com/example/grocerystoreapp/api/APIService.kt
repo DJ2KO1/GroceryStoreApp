@@ -8,6 +8,8 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface APIService {
+
+    //  'https://api.kroger.com/v1/products?filter.brand={{BRAND}}&filter.term={{TERM}}&filter.locationId={{LOCATION_ID}}' \
     @Headers("Accept: application/json")
     @GET("v1/products")
      suspend fun getProducts(
@@ -17,14 +19,16 @@ interface APIService {
 
      @GET("v1/locations")
      suspend fun getLocations(
-         @Query("filter.zipCode.near") zipcode: String
+         @Query("filter.zipCode.near") zipcode: String,
+         @Query("filter.chain") chain: String = "Kroger"
      ): Response<LocationResponse>
 
     @FormUrlEncoded
     @POST("v1/connect/oauth2/token")
    suspend fun getToken(
         @Header("Authorization")  authorization: String,
-        @Field("grant_type") grant_type: String
+        @Field("grant_type") grant_type: String,
+        @Field("scope") scope:String
     ): Response<TokenResponse>
 }
 

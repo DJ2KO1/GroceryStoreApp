@@ -12,6 +12,17 @@
         <action
             android:id="@+id/action_nav_starting_page_to_nav_zipcode_page"
             app:destination="@id/nav_zipcode_page" />
+        <action
+            android:id="@+id/action_nav_starting_page_to_nav_registration_page"
+            app:destination="@id/nav_registration_page" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_registration_page"
+        android:name="com.example.grocerystoreapp.view.RegistrationFragment">
+        <action
+            android:id="@+id/action_nav_registration_page_to_nav_starting_page"
+            app:destination="@id/nav_starting_page" />
     </fragment>
 
 
@@ -44,7 +55,7 @@
             app:destination="@id/nav_product_list" />
         <argument
             android:name="locationData"
-            app:argType="com.example.grocerystoreapp.model.Data"/>
+            app:argType="com.example.grocerystoreapp.model.LocationItem"/>
     </fragment>
 
 
@@ -59,7 +70,7 @@
             app:argType="string"/>
         <argument
             android:name="locationData"
-            app:argType="com.example.grocerystoreapp.model.Data"/>
+            app:argType="com.example.grocerystoreapp.model.LocationItem"/>
 
     </fragment>
 
@@ -72,7 +83,7 @@
             app:argType="com.example.grocerystoreapp.model.ProductData"/>
         <argument
             android:name="locationData"
-            app:argType="com.example.grocerystoreapp.model.Data"/>
+            app:argType="com.example.grocerystoreapp.model.LocationItem"/>
 
     </fragment>
 

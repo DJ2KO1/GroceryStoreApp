@@ -44,9 +44,9 @@ class ProductViewModel (
         viewModelScope + coroutineExceptionHandler
     }
 
-    fun getKrogerProducts(locationId: String, term: String) {
+    fun getKrogerProducts(locationId: String, term: String, context: Context) {
         viewModelSafeScope.launch {
-            repository.getProducts(locationId, term).collect {
+            repository.getProducts(locationId, term, context).collect {
                 _productLiveData.postValue(it)
 
             }

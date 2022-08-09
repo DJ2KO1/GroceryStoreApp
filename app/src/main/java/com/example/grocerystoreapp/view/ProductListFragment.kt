@@ -1,11 +1,13 @@
 package com.example.grocerystoreapp.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.grocerystoreapp.databinding.FragmentProductListBinding
 import com.example.grocerystoreapp.model.ProductData
 import com.example.grocerystoreapp.model.ProductResponse
@@ -13,7 +15,7 @@ import com.example.grocerystoreapp.model.UIState
 
 class ProductListFragment : ViewModelFragment(){
     private lateinit var binding: FragmentProductListBinding
-    lateinit var args: ProductListFragmentArgs
+    val args: ProductListFragmentArgs by navArgs()
 
     private val productAdapter by lazy {
         ProductAdapter(openDetails = ::openDetails)
@@ -25,15 +27,15 @@ class ProductListFragment : ViewModelFragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductListBinding.inflate(layoutInflater)
-        configureObserver()
+        configureObserver(activity!!.applicationContext)
         return binding.root
     }
 
-    private fun configureObserver() {
+    private fun configureObserver(context: Context) {
         viewModel.productLiveData.observe(viewLifecycleOwner) { uistate ->
             when(uistate) {
                 is UIState.Loading -> {
-                    viewModel.getKrogerProducts(args.locationData.locationId.toString(), args.term)
+                    viewModel.getKrogerProducts(args.locationData.locationId.toString(), args.term, context)
                 }
                 is UIState.Error -> {
                     binding.pbLoading.visibility = View.GONE
@@ -45,7 +47,7 @@ class ProductListFragment : ViewModelFragment(){
                     binding.apply {
                         pbLoading.visibility = View.GONE
                         binding.tvLoadingText.visibility = View.GONE
-                        productAdapter.setProductList((uistate.response as ProductResponse).list)
+                        productAdapter.setProductList((uistate.response as ProductResponse).data)
                         rvProducts.adapter = productAdapter
                     }
                 }

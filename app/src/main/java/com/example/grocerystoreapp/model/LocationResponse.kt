@@ -4,11 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 data class LocationResponse(
-    val list: List<Data>
+    val data: List<LocationItem>,
+    val meta: Meta
 )
 
 @Parcelize
-data class Data(
+data class LocationItem(
     val address: Address? = null,
     val chain: String? = null,
     val hours: HoursX? = null,
@@ -88,4 +89,16 @@ data class SaturdayX (
     val close: String? = null,
     val `open`: String? = null,
     val open24: Boolean? = null
+) : Parcelable
+
+@Parcelize
+data class Pagination(
+    val limit: Int,
+    val start: Int,
+    val total: Int
+) : Parcelable
+
+@Parcelize
+data class Meta(
+    val pagination: Pagination
 ) : Parcelable

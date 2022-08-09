@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 data class ProductResponse(
-    val list: List<ProductData>,
+    val data: List<ProductData>,
 )
 
 @Parcelize
@@ -79,6 +79,6 @@ data class Fulfillment(
 
 @Parcelize
 data class Price(
-    val promo: Int,
+    val promo: Double,
     val regular: Double
 ) : Parcelable

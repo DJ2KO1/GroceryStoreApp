@@ -14,11 +14,11 @@ class AuthInterceptor(context: Context?) : Interceptor {
             .newBuilder()
 
         // If token has been saved, add it to the request
-        if (!tokenrequest) {
+
             sessionManager.fetchAuthToken()?.let {
                 requestBuilder.addHeader("Authorization", "Bearer $it")
             }
-        }
+
 
         return chain.proceed(requestBuilder.build())
     }

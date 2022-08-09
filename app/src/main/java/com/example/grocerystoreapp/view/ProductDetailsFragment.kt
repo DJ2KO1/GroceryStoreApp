@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.grocerystoreapp.databinding.FragmentProductDetailsBinding
 import com.example.grocerystoreapp.databinding.LoadingItemBinding
 import com.example.grocerystoreapp.model.ProductData
+import com.example.grocerystoreapp.model.ProductResponse
 import com.example.grocerystoreapp.model.UIState
 
 class ProductDetailsFragment: ViewModelFragment() {
@@ -38,8 +39,8 @@ class ProductDetailsFragment: ViewModelFragment() {
                 is UIState.Success<*> -> {
                     val item = uistate.response as ProductData
                     binding.apply {
-                        tvDetailAvailability.text = item.items[1].fulfillment.inStore.toString()
-                        tvDetailPrice.text = item.items[3].price.regular.toString()
+                        tvDetailAvailability.text = item.items[0].fulfillment.inStore.toString()
+                        tvDetailPrice.text = item.items[0].price.regular.toString()
                         tvDetailDescription.text = item.description
 
                         Glide.with(ivDetailImage)

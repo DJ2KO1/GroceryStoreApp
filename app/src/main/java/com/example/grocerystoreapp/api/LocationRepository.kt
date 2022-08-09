@@ -6,6 +6,7 @@ import com.example.grocerystoreapp.model.UIState
 import com.example.grocerystoreapp.view.MainActivity.Body.client_id
 import com.example.grocerystoreapp.view.MainActivity.Body.client_secret
 import com.example.grocerystoreapp.view.MainActivity.Body.grant_type
+import com.example.grocerystoreapp.view.MainActivity.Body.scope
 import com.example.grocerystoreapp.view.MainActivity.Body.tokenrequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -21,11 +22,12 @@ class LocationRepositoryImpl(private val service: APIService): LocationRepositor
     private lateinit var sessionManager: SessionManager
     override suspend fun getLocations(zipcode: String, context: Context): Flow<UIState> =
         flow {
-            val response = service.getToken(Credentials.basic(client_id, client_secret), grant_type)
+            sessionManager = SessionManager(context)
+            sessionManager.deleteAuthToken()
+            println(sessionManager.fetchAuthToken().toString())
+            val response = service.getToken(Credentials.basic(client_id, client_secret), grant_type, scope)
+
             if (response.code() == 200){
-
-                sessionManager = SessionManager(context)
-
                 sessionManager.saveAuthToken(response.body()!!.access_token)
                 println(sessionManager.fetchAuthToken().toString())
                 tokenrequest = false

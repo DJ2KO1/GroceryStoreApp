@@ -34,8 +34,8 @@ class LocationListFragment: ViewModelFragment() {
     }
 
     private fun configureObserver(context: Context) {
-        viewModel.locationLiveData.observe(viewLifecycleOwner) { uistate ->
-            when (uistate) {
+        viewModel.locationLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 is UIState.Loading -> {
                     println("This is the Location list Loading")
                     viewModel.getLocation(args.zipCode,context)
@@ -54,7 +54,8 @@ class LocationListFragment: ViewModelFragment() {
                     binding.apply {
                         pbLoading.visibility = View.GONE
                         binding.tvLoadingText.visibility = View.GONE
-                        locationAdapter.setLocationList((uistate.response as LocationResponse).list)
+                        println()
+                        locationAdapter.setLocationList((it.response as LocationResponse).data)
                         rvLocations.adapter = locationAdapter
                     }
                 }
@@ -62,7 +63,7 @@ class LocationListFragment: ViewModelFragment() {
             }
         }
     }
-    private fun openSearch(item: Data) {
+    private fun openSearch(item: LocationItem) {
         viewModel.setLoadingForLocation()
         findNavController().navigate(
             LocationListFragmentDirections.actionNavLocationListToNavSearchPage(item)

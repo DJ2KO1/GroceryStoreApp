@@ -4,20 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grocerystoreapp.databinding.LocationListItemBinding
-import com.example.grocerystoreapp.model.Data
+import com.example.grocerystoreapp.model.LocationItem
 
 class LocationAdapter (
-    private val list: MutableList<Data> = mutableListOf(),
-    private val openSearch:(Data) -> Unit
+    private val list: MutableList<LocationItem> = mutableListOf(),
+    private val openSearch:(LocationItem) -> Unit
 ): RecyclerView.Adapter<LocationAdapter.LocationViewHolder>(){
 
-    fun setLocationList(newList: List<Data>){
+    fun setLocationList(newList: List<LocationItem>){
         list.addAll(newList)
         notifyDataSetChanged()
     }
 
     inner class LocationViewHolder(private val binding: LocationListItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun onBind(item: Data){
+        fun onBind(item: LocationItem){
             binding.apply {
                 println(item.locationId)
                 tvAddress.text = item.address?.addressLine1.plus(item.address?.city).plus(item.address?.county).plus(item.address?.state).plus(item.address?.zipCode)
