@@ -1,5 +1,6 @@
 package com.example.grocerystoreapp.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -52,9 +53,10 @@ class ProductViewModel (
         }
     }
 
-    fun getLocation(zipcode: String){
+    fun getLocation(zipcode: String,context: Context){
+        println(zipcode)
         viewModelSafeScope.launch {
-            locationRepository.getLocations(zipcode).collect{
+            locationRepository.getLocations(zipcode,context).collect{
                 _locationLiveData.postValue(it)
             }
         }

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 data class ProductResponse(
-    val productData: List<ProductData>,
+    val list: List<ProductData>,
 )
 
 @Parcelize

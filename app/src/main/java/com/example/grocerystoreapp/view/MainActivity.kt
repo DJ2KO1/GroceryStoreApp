@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.grocerystoreapp.R
 import com.example.grocerystoreapp.model.SessionManager
-import com.example.grocerystoreapp.di.ApiClient
 import com.example.grocerystoreapp.di.DI
 
 class MainActivity : AppCompatActivity() {
@@ -35,11 +34,12 @@ class MainActivity : AppCompatActivity() {
 //
 //            })
 
-        apiClient.getApiService(this).getProducts(sessionManager.fetchAuthToken().toString())
+//        apiClient.getApiService(this).getProducts(sessionManager.fetchAuthToken().toString())
 
     }
 
     companion object Body{
+        var tokenrequest: Boolean = false
         val grant_type: String = "client_credentials"
         val  scope: String = "product.compact profile.compact"
         val  client_id: String =  "grocerystore-e32339f7148fa55f5dba413bc44b21f24829451287186067310"

@@ -33,7 +33,7 @@ class ProductListFragment : ViewModelFragment(){
         viewModel.productLiveData.observe(viewLifecycleOwner) { uistate ->
             when(uistate) {
                 is UIState.Loading -> {
-                    viewModel.getKrogerProducts(args.locationID, args.term)
+                    viewModel.getKrogerProducts(args.locationData.locationId.toString(), args.term)
                 }
                 is UIState.Error -> {
                     binding.pbLoading.visibility = View.GONE
@@ -45,7 +45,7 @@ class ProductListFragment : ViewModelFragment(){
                     binding.apply {
                         pbLoading.visibility = View.GONE
                         binding.tvLoadingText.visibility = View.GONE
-                        productAdapter.setProductList((uistate.response as ProductResponse).productData)
+                        productAdapter.setProductList((uistate.response as ProductResponse).list)
                         rvProducts.adapter = productAdapter
                     }
                 }
@@ -59,7 +59,7 @@ class ProductListFragment : ViewModelFragment(){
         findNavController().navigate(
             ProductListFragmentDirections.actionNavProductListToNavProductDetails(
                 productData,
-                args.locationID
+                args.locationData
             )
         )
 

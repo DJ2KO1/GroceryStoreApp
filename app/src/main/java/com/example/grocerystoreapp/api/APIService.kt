@@ -15,7 +15,7 @@ interface APIService {
         @Query("filter.term") term: String
     ): Response<ProductResponse>
 
-     @GET("v1/products")
+     @GET("v1/locations")
      suspend fun getLocations(
          @Query("filter.zipCode.near") zipcode: String
      ): Response<LocationResponse>
@@ -25,7 +25,7 @@ interface APIService {
    suspend fun getToken(
         @Header("Authorization")  authorization: String,
         @Field("grant_type") grant_type: String
-    ): Call<TokenResponse>
+    ): Response<TokenResponse>
 }
 
 

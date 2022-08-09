@@ -25,7 +25,7 @@ class SearchPageFragment: ViewModelFragment() {
             findNavController().navigate(
                 SearchPageFragmentDirections.actionNavSearchPageToNavProductList(
                     binding.etSearchTerms.text.toString(),
-                    args.locationId
+                    args.locationData
 
                 )
             )

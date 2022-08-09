@@ -1,11 +1,14 @@
 package com.example.grocerystoreapp.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.grocerystoreapp.databinding.FragmentLocationListBinding
 import com.example.grocerystoreapp.databinding.LocationListItemBinding
 import com.example.grocerystoreapp.model.*
@@ -13,7 +16,7 @@ import com.example.grocerystoreapp.model.*
 class LocationListFragment: ViewModelFragment() {
 
     private lateinit var binding: FragmentLocationListBinding
-    lateinit var args: LocationListFragmentArgs
+    private val args: LocationListFragmentArgs by navArgs()
 
     private val locationAdapter by lazy {
         LocationAdapter(openSearch = ::openSearch)
@@ -25,15 +28,19 @@ class LocationListFragment: ViewModelFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLocationListBinding.inflate(layoutInflater)
-        configureObserver()
+        println("This is the Location list")
+        configureObserver(activity!!.applicationContext)
         return binding.root
     }
 
-    private fun configureObserver() {
-        viewModel.locationLiveData.observe(viewLifecycleOwner) {
-            when (it) {
+    private fun configureObserver(context: Context) {
+        viewModel.locationLiveData.observe(viewLifecycleOwner) { uistate ->
+            when (uistate) {
                 is UIState.Loading -> {
-                    viewModel.getLocation(args.zipCode)
+                    println("This is the Location list Loading")
+                    viewModel.getLocation(args.zipCode,context)
+                    binding.rvLocations.adapter = locationAdapter
+
                 }
                 is UIState.Error -> {
                     binding.pbLoading.visibility = View.GONE
@@ -42,10 +49,12 @@ class LocationListFragment: ViewModelFragment() {
                     Toast.makeText(context, "Please Try Again", Toast.LENGTH_SHORT).show()
                 }
                 is UIState.Success<*> -> {
+                    println("This is the Location list Success")
+
                     binding.apply {
                         pbLoading.visibility = View.GONE
                         binding.tvLoadingText.visibility = View.GONE
-                        locationAdapter.setLocationList((it.response as LocationResponse).locationData)
+                        locationAdapter.setLocationList((uistate.response as LocationResponse).list)
                         rvLocations.adapter = locationAdapter
                     }
                 }
@@ -53,10 +62,10 @@ class LocationListFragment: ViewModelFragment() {
             }
         }
     }
-    private fun openSearch(locationData: LocationData) {
+    private fun openSearch(item: Data) {
         viewModel.setLoadingForLocation()
         findNavController().navigate(
-            LocationListFragmentDirections.actionNavLocationListToNavSearchPage(locationData.locationId)
+            LocationListFragmentDirections.actionNavLocationListToNavSearchPage(item)
         )
 
     }

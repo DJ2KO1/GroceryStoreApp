@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.example.grocerystoreapp.api.APIService
 import com.example.grocerystoreapp.api.LocationRepositoryImpl
 import com.example.grocerystoreapp.api.ProductRepositoryImpl
+import com.example.grocerystoreapp.databinding.FragmentLocationListBinding
 import com.example.grocerystoreapp.viewmodel.ProductViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonDisposableHandle.parent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,25 +18,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object DI {
-    private lateinit var apiService: APIService
 
-    fun getApiService(context: Context): APIService {
+    fun getApiService(context: Context?): APIService {
 
-        // Initialize ApiService if not initialized yet
-        if (!::apiService.isInitialized) {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.kroger.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(provideHttpClient(context))
-                .build()
-
-            apiService = retrofit.create(APIService::class.java)
-        }
-
-        return apiService
+        return Retrofit.Builder()
+            .baseUrl("https://api.kroger.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(provideHttpClient(context))
+            .build()
+            .create(APIService::class.java)
     }
 
-    private fun provideHttpClient(context: Context): OkHttpClient {
+    private fun provideHttpClient(context: Context?): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(context))
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -46,14 +41,14 @@ object DI {
             .build()
     }
 
-    private fun provideRepository() = ProductRepositoryImpl(apiService)
+    private fun provideRepository(context: Context?) = ProductRepositoryImpl(getApiService(context))
     private fun provideDispatcher() = Dispatchers.IO
-    private fun provideLocationRepository() = LocationRepositoryImpl(apiService)
+    private fun provideLocationRepository(context: Context?) = LocationRepositoryImpl(getApiService(context))
 
-    fun provideViewModel(storeOwner: ViewModelStoreOwner): ProductViewModel {
+    fun provideViewModel(storeOwner: ViewModelStoreOwner, context: Context?): ProductViewModel {
         return ViewModelProvider(storeOwner, object: ViewModelProvider.Factory{
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ProductViewModel(provideRepository(), provideDispatcher(), provideLocationRepository()) as T
+                return ProductViewModel(provideRepository(context), provideDispatcher(), provideLocationRepository(context)) as T
             }
         })[ProductViewModel::class.java]
     }

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.grocerystoreapp.api.LocationRepositoryImpl
 import com.example.grocerystoreapp.databinding.FragmentZipcodePageBinding
+import com.example.grocerystoreapp.di.DI
 
 class ZipcodeFragment: ViewModelFragment() {
 
@@ -19,7 +21,7 @@ class ZipcodeFragment: ViewModelFragment() {
         binding = FragmentZipcodePageBinding.inflate(layoutInflater)
 
         binding.btnFindStore.setOnClickListener {
-            viewModel.setLoading()
+            viewModel.setLoadingForLocation()
             findNavController().navigate(
                 ZipcodeFragmentDirections.actionNavZipcodePageToNavLocationList(
                     binding.etZipcode.text.toString()

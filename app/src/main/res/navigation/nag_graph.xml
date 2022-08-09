@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nag_graph.xml">
+    android:id="@+id/nag_graph.xml"
+    app:startDestination="@id/nav_starting_page">
 
 
     <fragment
@@ -24,14 +25,26 @@
 
 
     <fragment
+        android:id="@+id/nav_locationList"
+        android:name="com.example.grocerystoreapp.view.LocationListFragment">
+        <action
+            android:id="@+id/action_nav_locationList_to_nav_search_page"
+            app:destination="@id/nav_search_page" />
+        <argument
+            android:name="zipCode"
+            app:argType="string"/>
+    </fragment>
+
+
+    <fragment
         android:id="@+id/nav_search_page"
         android:name="com.example.grocerystoreapp.view.SearchPageFragment">
         <action
             android:id="@+id/action_nav_search_page_to_nav_product_list"
             app:destination="@id/nav_product_list" />
         <argument
-            android:name="locationId"
-            app:argType="string"/>
+            android:name="locationData"
+            app:argType="com.example.grocerystoreapp.model.Data"/>
     </fragment>
 
 
@@ -45,24 +58,10 @@
             android:name="term"
             app:argType="string"/>
         <argument
-            android:name="locationID"
-            app:argType="string"/>
+            android:name="locationData"
+            app:argType="com.example.grocerystoreapp.model.Data"/>
 
     </fragment>
-
-
-
-    <fragment
-        android:id="@+id/nav_locationList"
-        android:name="com.example.grocerystoreapp.view.LocationListFragment">
-        <action
-            android:id="@+id/action_nav_locationList_to_nav_search_page"
-            app:destination="@id/nav_search_page" />
-        <argument
-            android:name="zipCode"
-            app:argType="string"/>
-    </fragment>
-
 
 
     <fragment
@@ -72,8 +71,8 @@
             android:name="productData"
             app:argType="com.example.grocerystoreapp.model.ProductData"/>
         <argument
-            android:name="locationID"
-            app:argType="string"/>
+            android:name="locationData"
+            app:argType="com.example.grocerystoreapp.model.Data"/>
 
     </fragment>
 

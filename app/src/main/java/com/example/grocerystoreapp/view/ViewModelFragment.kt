@@ -6,6 +6,6 @@ import com.example.grocerystoreapp.di.DI
 open class ViewModelFragment: Fragment() {
 
     protected val viewModel by lazy {
-        DI.provideViewModel(requireActivity())
+        DI.provideViewModel(requireActivity(),activity)
     }
 }
