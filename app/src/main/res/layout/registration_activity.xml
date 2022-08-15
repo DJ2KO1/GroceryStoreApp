@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:autofillHints="password"
         android:ems="10"
         android:hint="password"
@@ -71,21 +71,25 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="Create Account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintVertical_bias="0.641" />
 
     <TextView
         android:id="@+id/tvRedirectLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="104dp"
         android:gravity="center_horizontal"
         android:text="Already have an account? Login"
         android:textColor="#18206F"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSSigned"/>
+        app:layout_constraintTop_toBottomOf="@id/btnSSigned" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

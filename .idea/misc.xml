@@ -18,6 +18,12 @@
         <entry key="..\:/Users/DJ/AndroidStudioProjects/GroceryStoreApp/app/src/main/res/layout/search_page.xml" value="0.403125" />
         <entry key="..\:/Users/DJ/AndroidStudioProjects/GroceryStoreApp/app/src/main/res/layout/zipcode_page.xml" value="0.403125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.36041666666666666" />
+        <entry key="app/src/main/res/layout/fragment_location_list.xml" value="0.23228346456692914" />
+        <entry key="app/src/main/res/layout/fragment_product_details.xml" value="0.3442028985507246" />
+        <entry key="app/src/main/res/layout/loading_item.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/location_list_item.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/product_list_item.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/registration_activity.xml" value="0.44505859034885153" />
       </map>
     </option>
   </component>

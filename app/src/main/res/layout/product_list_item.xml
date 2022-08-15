@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:backgroundTint="@android:color/holo_orange_light"
+    android:backgroundTint="#264CBF"
     android:layout_margin="4dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="20dp">
@@ -34,6 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
+            android:textColor="@color/white"
+
             android:hint="This is a test description of an item or product"
             app:layout_constraintTop_toBottomOf="@id/iv_product_image"
             app:layout_constraintStart_toStartOf="@id/iv_product_image"
@@ -44,6 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="$18.50"
+            android:textColor="@color/white"
+
             app:layout_constraintStart_toEndOf="@id/iv_product_image"
             app:layout_constraintBottom_toTopOf="@id/tv_product_description"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -53,6 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Not Availabile"
+            android:textColor="@color/white"
+
             app:layout_constraintStart_toEndOf="@id/iv_product_image"
             app:layout_constraintBottom_toTopOf="@id/tv_product_description"/>
 

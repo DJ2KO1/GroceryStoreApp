@@ -20,9 +20,9 @@ class LocationAdapter (
         fun onBind(item: LocationItem){
             binding.apply {
                 println(item.locationId)
-                tvAddress.text = item.address?.addressLine1.plus(item.address?.city).plus(item.address?.county).plus(item.address?.state).plus(item.address?.zipCode)
+                tvAddress.text = item.address?.addressLine1 + " "+ (item.address?.city) +" "+(item.address?.county)+" "+(item.address?.state) +" "+(item.address?.zipCode)
                 tvName.text = item.name
-                tvHours.text = item.hours?.monday?.open
+//                tvHours.text = item.hours?.monday?.open
             }
             binding.root.setOnClickListener {
                 openSearch(item)
